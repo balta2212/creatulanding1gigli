@@ -1,39 +1,51 @@
-import { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
-import axios from "axios";
+import { useState, useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
+import "./ItemListContainer.css";
 
-const ItemListContainer = () => {
-  const { categoriaId } = useParams();
+function ItemListContainer({ greeting }) {
   const [productos, setProductos] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const { categoryId } = useParams();
 
   useEffect(() => {
-    const fetchData = async () => {
-      let url = "https://fakestoreapi.com/products";
-      if (categoriaId)
-        url = `https://fakestoreapi.com/products/category/${categoriaId}`;
-      const response = await axios.get(url);
-      setProductos(response.data);
-    };
-    fetchData();
-  }, [categoriaId]);
+    setLoading(true);
+    fetch("https://dummyjson.com/products")
+      .then((res) => res.json())
+      .then((data) => {
+        if (categoryId) {
+          setProductos(data.products.filter((p) => p.category === categoryId));
+        } else {
+          setProductos(data.products);
+        }
+      })
+      .catch((err) => console.error("Error al cargar productos:", err))
+      .finally(() => setLoading(false));
+  }, [categoryId]);
+
+  if (loading) {
+    return (
+      <h2 style={{ textAlign: "center", color: "#00bcd4" }}>
+        Cargando productos...
+      </h2>
+    );
+  }
 
   return (
-    <div>
-      <h2>
-        {categoriaId ? `Categoría: ${categoriaId}` : "Todos los productos"}
-      </h2>
-      <div className="productos">
-        {productos.map((p) => (
-          <div key={p.id} className="producto">
-            <h3>{p.title}</h3>
-            <img src={p.image} alt={p.title} width="100" />
-            <p>${p.price}</p>
-            <Link to={`/producto/${p.id}`}>Ver detalle</Link>
+    <div className="item-list-container">
+      <h2 className="titulo">{greeting}</h2>
+      <div className="productos-grid">
+        {productos.map((producto) => (
+          <div key={producto.id} className="producto-card">
+            <Link to={`/item/${producto.id}`}>
+              <img src={producto.thumbnail} alt={producto.title} />
+            </Link>
+            <h4>{producto.title}</h4>
+            <p className="precio">${producto.price}</p>
           </div>
         ))}
       </div>
     </div>
   );
-};
+}
 
 export default ItemListContainer;
