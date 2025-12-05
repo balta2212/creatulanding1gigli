@@ -1,21 +1,23 @@
 import { Routes, Route } from "react-router-dom";
-import NavBar from "./componentes/NavBar/NavBar";
-import ItemListContainer from "./componentes/ItemListContainer/ItemListContainer";
-import ItemDetailContainer from "./componentes/ItemDetailContainer";
+import NavBar from "./components/NavBar";
 
-function App() {
+import Home from "./views/Home";
+import CategoryView from "./views/CategoryView";
+import ItemDetailView from "./views/ItemDetailView";
+import CartView from "./views/CartView";
+
+export default function App() {
   return (
     <>
       <NavBar />
+
       <Routes>
-        <Route path="/" element={<ItemListContainer />} />
-
-        <Route path="/category/:categoryId" element={<ItemListContainer />} />
-
-        <Route path="/item/:id" element={<ItemDetailContainer />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/category/:categoryId" element={<CategoryView />} />
+        <Route path="/item/:id" element={<ItemDetailView />} />
+        <Route path="/cart" element={<CartView />} />
+        <Route path="*" element={<h2>404 - No encontrado</h2>} />
       </Routes>
     </>
   );
 }
-
-export default App;
