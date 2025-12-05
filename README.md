@@ -1,16 +1,85 @@
-# React + Vite
+🛒 Tecbal – Ecommerce en React + Firebase
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este proyecto es un ecommerce desarrollado con React, utilizando Firebase Firestore para almacenar los productos.
+Incluye sistema de carrito, filtrado por categorías, vistas dinámicas y navegación con React Router.
 
-Currently, two official plugins are available:
+🚀 Tecnologías utilizadas
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+React + Vite
 
-## React Compiler
+React Router DOM
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Firebase Firestore
 
-## Expanding the ESLint configuration
+React Bootstrap / Bootstrap
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Context API (manejo global del carrito)
+
+CSS / SCSS
+
+📦 Características principales
+✔ Listado de productos
+
+Los productos se obtienen en tiempo real desde Firestore y se muestran en tarjetas con nombre, imagen y precio.
+
+✔ Categorías
+
+Sistema de filtros dinámicos:
+
+Celulares
+
+Laptops
+
+Accesorios
+
+Inicio (todos los productos)
+
+✔ Detalle del producto
+
+Cada producto tiene su propia página:
+/item/:id
+
+Incluye:
+
+Imagen grande
+
+Descripción
+
+Precio
+
+Botón para agregar al carrito
+
+✔ Carrito de compras
+
+Ver los productos agregados
+
+Calcular precio total
+
+Eliminar un producto
+
+Vaciar carrito completo
+
+Guardar cantidades
+
+Ruta:
+/cart
+
+✔ Firestore
+
+Los productos se leen desde:
+
+collection(db, "Item")
+
+🗂 Estructura del proyecto
+src/
+│── components/
+│   ├── ItemCard.jsx
+│   ├── ItemListContainer.jsx
+│   ├── ItemDetail.jsx
+│   ├── CartView.jsx
+│── context/
+│   ├── CartContext.jsx
+│── firebase/
+│   ├── firebaseConfig.js
+│── App.jsx
+│── main.jsx
